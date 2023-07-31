@@ -24,4 +24,4 @@
 ## Preview
 
 [- Click here to visit the app live.](https://ws-react-chat-app.onrender.com)
-<img src="https://github.com/elinordeniz/websocket-react-chat-app/blob/main/public/chatapp.png" width="374" height="600"/>
+<img src="https://github.com/elinordeniz/websocket-react-chat-app/blob/main/public/chatapp.png" width="600" height="374"/>
