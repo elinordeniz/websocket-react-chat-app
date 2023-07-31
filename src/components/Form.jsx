@@ -1,7 +1,11 @@
 import { BiSend } from "react-icons/bi";
 import { RiAttachment2 } from "react-icons/ri";
+import { MessageContext } from "../context/MessageContext";
+import { useContext } from "react";
 
-const Form = ({onChange, sendMessage, newMessage, handleSendFile}) => {
+
+const Form = () => {
+  const {sendMessage, newMessage, handleSendFile, setNewMessage}= useContext(MessageContext);
   return (
     <form
               onSubmit={sendMessage}
@@ -11,7 +15,7 @@ const Form = ({onChange, sendMessage, newMessage, handleSendFile}) => {
                 type="text"
                 placeholder="Type your message here"
                 value={newMessage}
-                onChange={onChange}
+                onChange={(e) => setNewMessage(e.target.value)}
                 className="bg-white border p-3 px-3 flex-grow rounded-md border-lime-200 focus:border-lime-900"
               />
               <label
