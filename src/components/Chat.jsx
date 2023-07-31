@@ -4,10 +4,12 @@ import { uniqBy } from "lodash";
 import axios from "axios";
 import User from "./User";
 import { FaUser } from "react-icons/fa";
-import { BiSend, BiSolidChat } from "react-icons/bi";
-import { RiAttachment2, RiLogoutCircleRLine } from "react-icons/ri";
+import { BiSolidChat } from "react-icons/bi";
+import { RiLogoutCircleRLine } from "react-icons/ri";
+import  Form  from "./Form";
+import ChatContainer from "./ChatContainer";
 
-// import {useNavigate} from 'react-router-dom'
+
 
 const Chat = () => {
   const [ws, setWs] = useState(null);
@@ -195,7 +197,7 @@ const Chat = () => {
         </div>
       </div>
       <span className=" sm:flex sm:flex-col sm:flex-1 md:flex-row overflow-y-auto">
-      <div
+        <div
           className={
             isMobileToggle
               ? "flex flex-col sticky left-0 -top-2 w-full min-h-3/5 bg-white  z-10"
@@ -224,7 +226,6 @@ const Chat = () => {
           </div>
         )}
 
-       
         <div className="sm:hidden w-full md:flex md:flex-col md:bg-stone-50-50 md:w-1/3 md:pt-4 md:justify-between">
           <div className="md:overflow-auto">
             <div className="text-lime-800 font-bold text-2xl py-2 pl-3 text-center">
@@ -267,64 +268,21 @@ const Chat = () => {
           </div>
 
           {!!selectedConvo && !isLoading && (
-            <div className="flex flex-col overflow-y-scroll w-full">
-              {uniqueMessages.map((message, key) => (
-                <div
-                  key={key}
-                  className={`flex flex-row break-all p-3 my-2 w-3/5 max-w-full rounded-md bg-[#FDFDFD] text-gray-500  ${
-                    message.sender === id ? "self-end" : "self-start"
-                  } `}
-                >
-                  {message.text}
-                  {message.file && (
-                    <div>
-                      <a
-                        target="_blank"
-                        className="underline flex items-center gap-1"
-                        href={
-                          axios.defaults.baseURL + "/uploads/" + message.file
-                        }
-                      >
-                        <RiAttachment2 /> {message.file}
-                      </a>
-                    </div>
-                  )}
-                </div>
-              ))}
-              <div ref={lastMessage}></div>
-            </div>
+          <ChatContainer 
+          lastMessage={lastMessage}
+          uniqueMessages={uniqueMessages}
+          id={id}
+          
+          />
           )}
 
           {!!selectedConvo && (
-            <form
-              onSubmit={sendMessage}
-              className="flex w-full flex-wrap sm:flex-none justify-center gap-2 p-4 fle sm:p-5 sm:mt-4 md:mt-0 left-0 bottom-0 sticky md:p-0 bg-green-50 "
-            >
-              <input
-                type="text"
-                placeholder="Type your message here"
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                className="bg-white border p-3 px-3 flex-grow rounded-md border-lime-200 focus:border-lime-900"
-              />
-              <label
-                type="button"
-                className="bg-gray-400 p-3 text-white rounded-md text-2xl"
-              >
-                <input
-                  type="file"
-                  className="hidden"
-                  onChange={handleSendFile}
-                />
-                <RiAttachment2 />
-              </label>
-              <button
-                type="submit"
-                className="bg-green-600 p-3 text-white rounded-md text-2xl"
-              >
-                <BiSend />
-              </button>
-            </form>
+            <Form 
+            onChange={(e) => setNewMessage(e.target.value)}
+            sendMessage={sendMessage}
+            newMessage={newMessage}
+            handleSendFile={handleSendFile}
+            />
           )}
         </div>
       </span>
