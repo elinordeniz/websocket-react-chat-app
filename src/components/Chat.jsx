@@ -15,6 +15,7 @@ const Chat = () => {
     useContext(UserContext);
   const {
     connetToWs,
+    setWs,
     ws,
     selectedConvo,
     setSelectedConvo,

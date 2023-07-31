@@ -106,6 +106,7 @@ export function MessageContextProvider({ children }) {
   const data = {
     connetToWs,
     ws,
+    setWs,
     selectedConvo,
     setSelectedConvo,
     messages,
