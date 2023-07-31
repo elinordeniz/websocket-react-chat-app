@@ -13,7 +13,6 @@ export function UserContextProvider({ children }) {
   useEffect(() => {
     const getProfile = async () => {
       await axios.get("/auth/profile").then((res) => {
-        console.log("profile");
         setId(res.data.userId);
         setUsername(res.data.username);
       });

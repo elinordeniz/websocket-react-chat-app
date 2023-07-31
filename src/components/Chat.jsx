@@ -8,7 +8,6 @@ import MobileNav from "./MobileNav";
 import UserNav from "./UserNav";
 import MobileUserNav from "./MobileUserNav";
 import Loading from "./Loading";
-import { is } from "cheerio/lib/api/traversing";
 
 const Chat = () => {
   const [isMobileToggle, setIsMobileToggle] = useState(false);
@@ -66,35 +65,31 @@ const Chat = () => {
   }, [onlineUsers]);
 
   return (
-    <div className="flex sm:flex-col md:flex-row h-screen sm:relative md:none overscroll-none ">
+    <div className="flex sm:flex-col md:flex-row h-screen w-full overflow-hidden">
       <MobileNav
         toggleMobileUsers={toggleMobileUsers}
         username={username}
         handleLogout={handleLogout}
       />
+      <MobileUserNav
+        isMobileToggle={isMobileToggle}
+        selectConvo={selectConvo}
+        selectedConvo={selectedConvo}
+      />
+      <UserNav selectConvo={selectConvo} handleLogout={handleLogout} />
 
-      <span className=" sm:flex sm:flex-col sm:flex-1 md:flex-row overflow-y-auto">
-        <MobileUserNav
-          isMobileToggle={isMobileToggle}
-          selectConvo={selectConvo}
-          selectedConvo={selectedConvo}
-        />
-        <UserNav selectConvo={selectConvo} handleLogout={handleLogout} />
+      <div className="flex flex-1 flex-col  bg-green-50 sm:w-full p-1 sm:flex-1 md:w-2/3 md:p-6 ">
+        <Loading isLoading={isLoading} selectedConvo={selectedConvo} />
 
-        <div className="flex flex-col bg-green-50 sm:w-full p-1 sm:flex-1 md:w-2/3 md:p-6 ">
-          <Loading isLoading={isLoading} selectedConvo={selectedConvo} />
-
-          {!!selectedConvo && !isLoading && (
-            <ChatContainer
-              lastMessage={lastMessage}
-              uniqueMessages={uniqueMessages}
-              id={id}
-            />
-          )}
-
-          {!!selectedConvo && <Form />}
-        </div>
-      </span>
+        {!!selectedConvo && !isLoading && (
+          <ChatContainer
+            lastMessage={lastMessage}
+            uniqueMessages={uniqueMessages}
+            id={id}
+          />
+        )}
+        {!!selectedConvo && <Form />}
+      </div>
     </div>
   );
 };

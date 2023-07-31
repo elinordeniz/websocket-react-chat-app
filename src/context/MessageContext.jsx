@@ -28,7 +28,7 @@ export function MessageContextProvider({ children }) {
   }, [selectedConvo]);
 
   const connetToWs = () => {
-    const ws = new WebSocket("ws://localhost:4000");
+    const ws = new WebSocket(import.meta.env.VITE_WS);
     setWs(ws);
     ws.addEventListener("message", handleMessage);
     ws.addEventListener("close", () => {
@@ -39,7 +39,7 @@ export function MessageContextProvider({ children }) {
     });
   };
 
-  function handleMessage (event) {
+  function handleMessage(event) {
     const messageData = JSON.parse(event?.data);
     if ("online" in messageData) {
       showOnlineUsers(messageData?.online);
@@ -48,9 +48,7 @@ export function MessageContextProvider({ children }) {
         setMessages((prev) => [...prev, { ...messageData }]);
       }
     } else return;
-  };
-
-
+  }
 
   const sendMessage = (e, file = null) => {
     if (e) e.preventDefault();
@@ -83,14 +81,14 @@ export function MessageContextProvider({ children }) {
           _id: Date.now(),
         },
       ]);
-      console.log({
-        text: newMessage,
-        sender: id,
-        recipient: selectedConvo,
-        _id: Date.now(),
-      });
+      // console.log({
+      //   text: newMessage,
+      //   sender: id,
+      //   recipient: selectedConvo,
+      //   _id: Date.now(),
+      // });
     }
-  }
+  };
 
   const handleSendFile = (e) => {
     const reader = new FileReader();
@@ -118,7 +116,7 @@ export function MessageContextProvider({ children }) {
     isLoading,
     setIsLoading,
     uniqueMessages,
-    handleSendFile
+    handleSendFile,
   };
   return (
     <MessageContext.Provider value={data}>{children}</MessageContext.Provider>

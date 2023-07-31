@@ -11,7 +11,7 @@ const MobileUsers = ({isMobileToggle, selectConvo}) => {
     <div
           className={
             isMobileToggle
-              ? "flex flex-col sticky left-0 -top-2 w-full min-h-3/5 bg-white  z-10"
+              ? "flex flex-col sticky left-0 top-0 w-full min-h-3/5 bg-white  z-10"
               : "hidden"
           }
         >

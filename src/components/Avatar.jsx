@@ -13,14 +13,17 @@ const colors = [
 ];
 
 const Avatar = ({ initial, online }) => {
-  const rand = initial.charCodeAt(0) % colors.length;
+  const rand =
+    initial?.charCodeAt(0) % colors.length ||
+    Math.floor(Math.random() * colors.length || 3);
 
   const bgcolor = colors[rand];
 
   return (
     <div
       className={
-        "w-12 h-12 bg-gray-300 rounded-full font-xl flex items-center justify-center relative "
+        "w-12 h-12 bg-gray-300 rounded-full font-xl flex items-center justify-center relative " +
+        bgcolor
       }
     >
       <div className="opacity-50 font-extrabold text-2xl capitalize">
