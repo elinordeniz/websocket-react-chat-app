@@ -31,8 +31,7 @@ export function UserContextProvider({ children }) {
     setOnlineUsers({ ...uniqueUsers });
     return null
   };
-  const onlineUsersExUs = { ...onlineUsers };
-  delete onlineUsersExUs[id]; //deleting our user info
+
 
   function getOfflineUsers(ws) {
     ws &&
@@ -50,6 +49,8 @@ export function UserContextProvider({ children }) {
       });
   }
 
+  const onlineUsersExUs = { ...onlineUsers };
+  delete onlineUsersExUs[id]; //deleting our user info
   const allUsers = Object.assign(onlineUsersExUs, offlineUsers);
 
   const data = {
