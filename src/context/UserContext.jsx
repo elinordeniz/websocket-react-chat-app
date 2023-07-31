@@ -8,7 +8,7 @@ export function UserContextProvider({ children }) {
   const [id, setId] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState({});
   const [offlineUsers, setOfflineUsers] = useState({});
-  
+  const [allUsers, setAllUsers]=useState({})
 
   useEffect(() => {
     const getProfile = async () => {
@@ -29,7 +29,9 @@ export function UserContextProvider({ children }) {
       uniqueUsers[u.userId].online = true;
     });
     setOnlineUsers({ ...uniqueUsers });
-    return null
+
+    
+   
   };
 
 
@@ -49,9 +51,12 @@ export function UserContextProvider({ children }) {
       });
   }
 
-  const onlineUsersExUs = { ...onlineUsers };
-  delete onlineUsersExUs[id]; //deleting our user info
-  const allUsers = Object.assign(onlineUsersExUs, offlineUsers);
+  useEffect(()=>{
+    const onlineUsersExUs = { ...onlineUsers };
+    delete onlineUsersExUs[id]; //deleting our user info 
+    setAllUsers(Object.assign(onlineUsersExUs, offlineUsers))
+  }, [onlineUsers])
+ 
 
   const data = {
     username,
